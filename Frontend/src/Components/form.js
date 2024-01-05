@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SignUpform.css";
+import axios from 'axios';
 
 // Hook for email and University ID validation
 const useEmailValidation = () => {
@@ -94,10 +95,10 @@ const PasswordValidator = ({ password, confirmPassword }) => {
 const Form = ({ switchForm }) => {
   // State variables for form fields and errors
   const [userType, setUserType] = useState("Guest");
-  const [Fname, setFname] = useState("");
-  const [Lname, setLname] = useState("");
-  const [Uid, setUid] = useState("");
-  const [Uemail, setUemail] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [universityID, setuniversityID] = useState("");
+  const [universityEmail, setuniversityEmail] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
@@ -115,19 +116,19 @@ const Form = ({ switchForm }) => {
 
   // Event handlers for form fields
   const handleFnameChange = (event) => {
-    setFname(event.target.value);
+    setfirstName(event.target.value);
   };
 
   const handleLnameChange = (event) => {
-    setLname(event.target.value);
+    setlastName(event.target.value);
   };
 
   const handleUidChange = (event) => {
-    setUid(event.target.value);
+    setuniversityID(event.target.value);
   };
 
   const handleUemailChange = (event) => {
-    setUemail(event.target.value);
+    setuniversityEmail(event.target.value);
   };
 
   const handleEmailChange = (event) => {
@@ -152,14 +153,14 @@ const Form = ({ switchForm }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!Fname || !Lname || !email || !password || !confirmpassword) {
+    if (!firstName || !lastName || !email || !password || !confirmpassword) {
       setRequiredFieldError("All fields are required");
       return;
     }
 
     // Check University ID validity only if the user type is "University User"
     if (userType === "University User") {
-      const isUniversityIdValid = validateUniversityId(Uid);
+      const isUniversityIdValid = validateUniversityId(universityID);
 
       if (!isUniversityIdValid) {
         return; // Do not proceed with form submission
@@ -171,20 +172,25 @@ const Form = ({ switchForm }) => {
       setRequiredFieldError("Passwords do not match");
       return;
     }
+    axios.post('http://localhost:4000/api/users/register', { firstName, lastName, email, password, userType, universityID, universityEmail })
+      .then(result => console.log(result))
+      .catch(err => console.log(err))
+
 
     // Additional logic for form submission if needed
 
     // Log submitted data
     console.log("Submitted data:", {
       UserType: userType,
-      FirstName: Fname,
-      lastName: Lname,
-      UniversityId: userType === "University User" ? Uid : undefined,
-      UniversityEmail: userType === "University User" ? Uemail : undefined,
+      FirstName: firstName,
+      lastName: lastName,
+      UniversityId: userType === "University User" ? universityID : undefined,
+      UniversityEmail: userType === "University User" ? universityEmail : undefined,
       PersonalEmail: email,
       Password: password,
       confPassword: confirmpassword,
     });
+
 
     // Clear form and errors
     handleClear();
@@ -192,10 +198,10 @@ const Form = ({ switchForm }) => {
 
   // Clear form and errors
   const handleClear = () => {
-    setFname("");
-    setLname("");
-    setUid("");
-    setUemail("");
+    setfirstName("");
+    setlastName("");
+    setuniversityID("");
+    setuniversityEmail("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
@@ -225,7 +231,7 @@ const Form = ({ switchForm }) => {
         <label className="label-names">First Name:</label>
         <input
           type="text"
-          value={Fname}
+          value={firstName}
           placeholder="First Name"
           onChange={handleFnameChange}
           required
@@ -237,7 +243,7 @@ const Form = ({ switchForm }) => {
         <label className="label-names">Last Name:</label>
         <input
           type="text"
-          value={Lname}
+          value={lastName}
           placeholder="Last Name"
           onChange={handleLnameChange}
           required
@@ -252,7 +258,7 @@ const Form = ({ switchForm }) => {
               <label className="label-names">University ID:</label>
               <input
                 type="text"
-                value={Uid}
+                value={universityID}
                 placeholder="University ID"
                 onChange={handleUidChange}
                 required
@@ -269,7 +275,7 @@ const Form = ({ switchForm }) => {
               <label className="label-names">University Email:</label>
               <input
                 type="email"
-                value={Uemail}
+                value={universityEmail}
                 placeholder="University Email"
                 onChange={handleUemailChange}
                 required

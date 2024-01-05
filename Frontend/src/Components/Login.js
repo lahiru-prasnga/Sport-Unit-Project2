@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Login.css";
+import isEmpty from "../isEmpty.js";
 
-import validation from "./Validation.js";
+import loginValidation from "./LoginValidation.js";
+import axios from "axios";
 
 function Login({ switchForm }) {
   const [values, setValues] = useState({
@@ -10,14 +12,34 @@ function Login({ switchForm }) {
     password: "",
   });
   const [errors, setErrors] = useState({});
+
   const handleInput = (e) => {
     setValues({ ...values, [e.target.name]: [e.target.value] });
   };
 
-  function handleValidation(e) {
+  const handleValidation = (e) => {
     e.preventDefault();
-    setErrors(validation(values));
+    setErrors(loginValidation(values));
+    if (isEmpty(errors)) {
+      console.log("No erros")
+      handleSubmit()
+    } else {
+      console.log(errors)
+    }
   }
+
+  const handleSubmit = () => {
+
+    axios.post('http://localhost:4000/api/users/login', values.email, values.password)
+      .then(result => {
+        console.log(result)
+
+
+      })
+      .catch(err => console.log(err))
+  }
+
+
 
   return (
     <div className="login_container">
