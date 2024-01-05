@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Login from "./Components/Login";
 import Form from "./Components/form";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 
 const ParentComponent = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -30,6 +32,7 @@ const ParentComponent = () => {
     <div>
       {showForm &&
         (isLoginForm ? (
+
           <Login switchForm={switchForm} showForm={() => setShowForm(false)} />
         ) : (
           <Form switchForm={switchForm} showForm={() => setShowForm(false)} />
