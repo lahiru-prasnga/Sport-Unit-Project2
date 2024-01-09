@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Login.css";
-
+import Login_css from './Login.module.css'
+import { Link  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import validation from "./Validation.js";
+import ForgotPWD from './FogotPWD';
 
-function Login({ switchForm }) {
+function Login({ switchForm  }) {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -18,16 +20,19 @@ function Login({ switchForm }) {
     e.preventDefault();
     setErrors(validation(values));
   }
+  const handleforgorpwd =() =>{
 
+  }
   return (
-    <div className="login_container">
-      <div className="login_form">
+   
+    <div className={Login_css.login_container}>
+      <div className={Login_css.login_form}>
         <div className="form">
           <form className="border p-3" onSubmit={handleValidation}>
-            <div className="header">
+            <div className={Login_css.header}>
               <h2>Login</h2>
             </div>
-            <div className="input">
+            <div className={Login_css.input_login}>
               <label>Email:</label>
               <input
                 type="email"
@@ -42,7 +47,7 @@ function Login({ switchForm }) {
                 <p style={{ color: "red", fontSize: "13px" }}>{errors.email}</p>
               )}
             </div>
-            <div className="input">
+            <div className={Login_css.input_login}>
               <label>Password:</label>
               <input
                 type="password"
@@ -58,7 +63,7 @@ function Login({ switchForm }) {
                 </p>
               )}
             </div>
-            <div className="submit">
+            <div className={Login_css.submit_login}>
               <button className="btn" type="submit">
                 Login
               </button>
@@ -68,17 +73,24 @@ function Login({ switchForm }) {
               Remember me
             </div>
             <br />
-            <a href="#" alt="">
-              Forgot password
-            </a>
-            <br />
+           
 
-            <span className="signup-link" onClick={switchForm}>
+            <a href="/" onClick={() => switchForm("pwdReset")}>
+              Forgot Password
+            </a>
+            <p>
+                Don't have an account ? 
+                
+       
+      
+      
+            <span className={Login_css.signup_link} onClick={switchForm}>
               Click here to Create Account!
-            </span>
+            </span> </p>
           </form>
         </div>
       </div>
+   
     </div>
   );
 }

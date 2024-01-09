@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SignUpform.css";
+import Sign_css from './SignUpform.module.css'
 
 // Hook for email and University ID validation
 const useEmailValidation = () => {
@@ -206,15 +206,16 @@ const Form = ({ switchForm }) => {
 
   // JSX for the form
   return (
-    <div className="register-form">
-      <h2 className="signup-topic">Sign Up</h2>
-      <form id="form01" className="signupform01" onSubmit={handleSubmit}>
+    <div className={Sign_css.body_sign}>
+    <div className={Sign_css.register_form}>
+      <h2 className={Sign_css.signup_topic}>Sign Up</h2>
+      <form id="form01" className={Sign_css.signupform01} onSubmit={handleSubmit}>
         {/* User Type */}
-        <label className="label-names">User Type:</label>
+        <label className={Sign_css.label_names}>User Type:</label>
         <select
           value={userType}
           onChange={handleUserTypeChange}
-          className="U-type-selector"
+          className={Sign_css.U_type_selector}
           name="userType"
         >
           <option value="Guest">Guest</option>
@@ -222,26 +223,26 @@ const Form = ({ switchForm }) => {
         </select>
 
         {/* First Name */}
-        <label className="label-names">First Name:</label>
+        <label className={Sign_css.label_names}>First Name:</label>
         <input
           type="text"
           value={Fname}
           placeholder="First Name"
           onChange={handleFnameChange}
           required
-          className="inputFields"
+          className={Sign_css.inputFields}
           name="firstName"
         />
 
         {/* Last Name */}
-        <label className="label-names">Last Name:</label>
+        <label className={Sign_css.label_names}>Last Name:</label>
         <input
           type="text"
           value={Lname}
           placeholder="Last Name"
           onChange={handleLnameChange}
           required
-          className="inputFields"
+          className={Sign_css.inputFields}
           name="LastName"
         />
 
@@ -249,14 +250,15 @@ const Form = ({ switchForm }) => {
         {userType === "University User" && (
           <>
             <div className="University Users">
-              <label className="label-names">University ID:</label>
+              
+              <label className={Sign_css.label_names}>University ID:</label>
               <input
                 type="text"
                 value={Uid}
                 placeholder="University ID"
                 onChange={handleUidChange}
                 required
-                className="inputFields"
+                className={Sign_css.inputFields}
                 name="UniversityId"
               />
               {/* Display University ID error if exists */}
@@ -266,14 +268,14 @@ const Form = ({ switchForm }) => {
                 </p>
               )}
 
-              <label className="label-names">University Email:</label>
+              <label className={Sign_css.label_names}>University Email:</label>
               <input
                 type="email"
                 value={Uemail}
                 placeholder="University Email"
                 onChange={handleUemailChange}
                 required
-                className="inputFields"
+                className={Sign_css.inputFields}
                 name="universityEmail"
               />
             </div>
@@ -281,14 +283,14 @@ const Form = ({ switchForm }) => {
         )}
 
         {/* Personal Email */}
-        <label className="label-names">Personal Email:</label>
+        <label className={Sign_css.label_names}>Personal Email:</label>
         <input
           type="email"
           value={email}
           placeholder="Email..."
           onChange={handleEmailChange}
           required
-          className="inputFields"
+          className={Sign_css.inputFields}
           name="personalEmail"
         />
         {/* Display email error if exists */}
@@ -297,14 +299,14 @@ const Form = ({ switchForm }) => {
         )}
 
         {/* Password */}
-        <label className="label-names">Password:</label>
+        <label className={Sign_css.label_names}>Password:</label>
         <input
           type="password"
           value={password}
           placeholder="Password"
           onChange={handlePasswordChange}
           required
-          className="inputFields"
+          className={Sign_css.inputFields}
           name="password"
         />
         {/* Password validation component */}
@@ -314,14 +316,14 @@ const Form = ({ switchForm }) => {
         />
 
         {/* Confirm Password */}
-        <label className="label-names">Confirm Password:</label>
+        <label className={Sign_css.label_names}>Confirm Password:</label>
         <input
           type="password"
           value={confirmpassword}
           placeholder="Confirm password"
           onChange={handleConfirmPasswordChange}
           required
-          className="inputFields"
+          className={Sign_css.inputFields}
           name="confirmPassoword"
         />
         {/* Display required field error if exists */}
@@ -330,20 +332,22 @@ const Form = ({ switchForm }) => {
         )}
 
         {/* Form submission buttons */}
-        <button className="submitBtn" type="submit" onClick={handleSubmit}>
+        <button className={Sign_css.submitBtn} type="submit" onClick={handleSubmit}>
           Submit
         </button>
-        <button className="clearBtn" type="reset" onClick={handleClear}>
+        <button className={Sign_css.clearBtn} type="reset" onClick={handleClear}>
           Clear
         </button>
 
-        <p className="already-account">
+        <p className={Sign_css.already_account}>
           Already have an Account?
-          <span className="login-link" onClick={switchForm}>
+          <span className={Sign_css.login_link} onClick={switchForm}>
             Click here to Login
           </span>
         </p>
       </form>
+    </div>
+
     </div>
   );
 };
